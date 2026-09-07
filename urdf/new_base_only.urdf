@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="new_base_only">
+  <material name="new_base_dark_gray">
+    <color rgba="0.35 0.35 0.33 1"/>
+  </material>
+  <material name="new_base_profile_gray">
+    <color rgba="0.55 0.55 0.52 1"/>
+  </material>
+  <material name="new_base_flange_gray">
+    <color rgba="0.75 0.75 0.72 1"/>
+  </material>
+  <material name="new_base_adapter_gray">
+    <color rgba="0.48 0.48 0.46 1"/>
+  </material>
+
+  <link name="world"/>
+
+  <link name="new_base_assembly_link">
+    <inertial>
+      <origin xyz="0.1608689 0.8 0.125" rpy="0 0 0"/>
+      <mass value="25.0"/>
+      <inertia ixx="2.0" ixy="0" ixz="0" iyy="1.0" iyz="0" izz="2.0"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/base_plate.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="new_base_dark_gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/base_plate.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/profile_8080.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="new_base_profile_gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/profile_8080.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/arm_flange.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="new_base_flange_gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/arm_flange.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/adapter_seat.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="new_base_adapter_gray"/>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="meshes/adapter_seat.STL" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- The SolidWorks STL assembly uses millimetres and CAD-Y as vertical.
+       This fixed joint rotates CAD-Y onto URDF/MuJoCo world-Z. -->
+  <joint name="world_to_new_base_assembly" type="fixed">
+    <parent link="world"/>
+    <child link="new_base_assembly_link"/>
+    <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+  </joint>
+</robot>
