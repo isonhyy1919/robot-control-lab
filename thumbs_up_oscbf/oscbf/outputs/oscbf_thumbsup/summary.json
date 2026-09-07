@@ -1,0 +1,52 @@
+{
+  "method": "velocity-level task-consistent OSCBF",
+  "urdf": "models/a7v2_arm_hand/urdf/a7v2_latest_stand_single_arm_right_hand.urdf",
+  "trajectory": "thumbsup/outputs/thumbs_up_trajectory.csv",
+  "obstacle_center_m": [
+    0.7,
+    -0.315,
+    0.82
+  ],
+  "obstacle_radius_m": 0.105,
+  "safety_margin_m": 0.025,
+  "control_dt_s": 0.005,
+  "alpha": 10.0,
+  "collision_spheres": 14,
+  "trajectory_diagnostics": {
+    "duration_s": 7.7,
+    "samples": 232,
+    "joint_limit_violations": {
+      "A4_joint": {
+        "urdf_lower_rad": 0.0,
+        "urdf_upper_rad": 2.2,
+        "trajectory_min_rad": -0.5,
+        "trajectory_max_rad": 0.0,
+        "maximum_violation_rad": 0.5
+      }
+    }
+  },
+  "baseline": {
+    "steps": 1541,
+    "minimum_obstacle_h_m": -0.1333682497288536,
+    "obstacle_unsafe_steps": 344,
+    "minimum_joint_limit_h_rad": -0.5002412510417269,
+    "joint_limit_unsafe_steps": 1537,
+    "maximum_joint_tracking_error_rad": 0.011219166543503047,
+    "mean_joint_tracking_error_rad": 0.0020499983056360815,
+    "mean_qp_time_us": 13.1085009733939,
+    "p95_qp_time_us": 18.1,
+    "maximum_qp_constraint_residual": 5.029324405786016
+  },
+  "oscbf": {
+    "steps": 1541,
+    "minimum_obstacle_h_m": 0.00012137569923510033,
+    "obstacle_unsafe_steps": 0,
+    "minimum_joint_limit_h_rad": -1.3276055602085004e-16,
+    "joint_limit_unsafe_steps": 0,
+    "maximum_joint_tracking_error_rad": 1.2618039226098048,
+    "mean_joint_tracking_error_rad": 0.5915897632768116,
+    "mean_qp_time_us": 3559.653861129137,
+    "p95_qp_time_us": 15446.8,
+    "maximum_qp_constraint_residual": 0.0003612910610469172
+  }
+}

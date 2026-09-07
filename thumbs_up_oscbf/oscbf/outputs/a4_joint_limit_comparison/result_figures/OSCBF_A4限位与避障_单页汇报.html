@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>OSCBF A4限位与避障结果</title>
+  <style>
+    :root {
+      --ink: #172a41;
+      --muted: #657286;
+      --blue: #147ab5;
+      --red: #cf4056;
+      --green: #12956e;
+      --orange: #df7f0b;
+      --line: #c5d0dd;
+      --paper: #f7f9fc;
+      --canvas: #eaf0f6;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #111821; }
+    body { font-family: "Microsoft YaHei", "PingFang SC", Arial, sans-serif; }
+    #stage { position: fixed; inset: 0; display: grid; place-items: center; }
+    #slide {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      transform-origin: center center;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 95% 2%, rgba(20,122,181,.08), transparent 28%),
+        linear-gradient(180deg, #f8fafc 0%, var(--canvas) 100%);
+      box-shadow: 0 30px 90px rgba(0,0,0,.35);
+    }
+    header { position: absolute; left: 72px; right: 72px; top: 48px; height: 100px; }
+    h1 { margin: 0; font-size: 62px; line-height: 1.08; letter-spacing: -1px; font-weight: 800; }
+    .subtitle { margin-top: 13px; color: var(--muted); font-size: 23px; letter-spacing: .4px; }
+    .rule { position: absolute; left: 72px; right: 72px; top: 157px; height: 3px; background: linear-gradient(90deg,var(--blue),#9bb7cf 45%,transparent); }
+
+    .content { position: absolute; left: 72px; right: 72px; top: 190px; height: 690px; display: grid; grid-template-columns: 1020px 1fr; column-gap: 48px; }
+    .visual-label { position: absolute; z-index: 2; left: 22px; top: 18px; padding: 8px 15px; border-radius: 6px; color: white; font-size: 24px; font-weight: 700; }
+    .left-visual, .right-visual { position: relative; overflow: hidden; background: var(--paper); border: 1px solid var(--line); box-shadow: 0 12px 30px rgba(36,64,93,.11); }
+    .left-visual { height: 690px; border-radius: 16px; }
+    .left-visual .visual-label { background: var(--blue); }
+    .left-crop { position: absolute; inset: 0; overflow: hidden; }
+    .left-crop img { position: absolute; width: 2000px; height: auto; left: -6px; top: -2px; }
+
+    .right-column { display: grid; grid-template-rows: 420px 1fr; row-gap: 28px; }
+    .right-visual { height: 420px; border-radius: 16px; }
+    .right-visual .visual-label { background: var(--red); }
+    .right-crop { position: absolute; inset: 0; overflow: hidden; }
+    .right-crop img { position: absolute; width: 790px; height: auto; left: -2px; top: -2px; }
+
+    .metrics { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; border-top: 2px solid var(--line); border-bottom: 2px solid var(--line); }
+    .metric { position: relative; padding: 17px 24px 12px 25px; }
+    .metric:nth-child(odd) { border-right: 1px solid var(--line); }
+    .metric:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+    .metric-title { color: var(--muted); font-size: 19px; font-weight: 700; }
+    .metric-value { margin-top: 5px; font-size: 34px; line-height: 1; font-weight: 800; white-space: nowrap; }
+    .metric-note { margin-top: 6px; color: #5f6a79; font-size: 16px; }
+    .metric.red .metric-value { color: var(--red); }
+    .metric.blue .metric-value { color: var(--blue); }
+    .metric.green .metric-value { color: var(--green); }
+    .metric.orange .metric-value { color: var(--orange); }
+
+    .takeaway { position: absolute; left: 72px; right: 72px; top: 912px; height: 115px; display: grid; grid-template-columns: 235px 1fr; align-items: center; border-top: 4px solid var(--blue); background: rgba(255,255,255,.68); }
+    .takeaway-tag { padding-left: 30px; color: var(--blue); font-size: 30px; font-weight: 800; }
+    .takeaway-text { padding-right: 32px; font-size: 25px; line-height: 1.48; font-weight: 650; }
+    .footer { position: absolute; left: 74px; right: 74px; bottom: 17px; display: flex; justify-content: space-between; color: #718093; font-size: 16px; }
+
+    @media print {
+      @page { size: 16in 9in; margin: 0; }
+      html, body, #stage { width: 1920px; height: 1080px; overflow: hidden; background: white; }
+      #slide { transform: none !important; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <main id="slide" aria-label="OSCBF A4关节限位与避障结果单页汇报">
+      <header>
+        <h1>OSCBF同时阻止A4越限与障碍物碰撞</h1>
+        <div class="subtitle">A7V2 MuJoCo验证｜速度层任务一致OSCBF｜7.7 s｜1541个控制采样点｜控制周期5 ms</div>
+      </header>
+      <div class="rule"></div>
+
+      <section class="content">
+        <figure class="left-visual" aria-label="末端轨迹对比">
+          <div class="visual-label">末端轨迹：局部调整后重新接近原任务</div>
+          <div class="left-crop">
+            <img src="04_末端轨迹与结果汇总.png" alt="无障碍不安全轨迹和带障碍物OSCBF安全轨迹的A7末端X-Z对比" />
+          </div>
+        </figure>
+
+        <section class="right-column">
+          <figure class="right-visual" aria-label="A4关节轨迹对比">
+            <div class="visual-label">A4轨迹：越限参考被安全过滤</div>
+            <div class="right-crop">
+              <img src="05_带障碍物场景_A4关节轨迹.png" alt="带障碍物场景下A4未过滤参考和OSCBF执行轨迹" />
+            </div>
+          </figure>
+
+          <section class="metrics" aria-label="量化实验指标">
+            <div class="metric red">
+              <div class="metric-title">A4最小值</div>
+              <div class="metric-value">−0.500 → ≈0 rad</div>
+              <div class="metric-note">URDF允许范围：[0, 2.2] rad</div>
+            </div>
+            <div class="metric blue">
+              <div class="metric-title">关节限位违规点</div>
+              <div class="metric-value">1537 → 0</div>
+              <div class="metric-note">OSCBF关闭 → OSCBF开启</div>
+            </div>
+            <div class="metric green">
+              <div class="metric-title">障碍物安全屏障</div>
+              <div class="metric-value">min h = 0.000121 m</div>
+              <div class="metric-note">碰撞违规采样点：0</div>
+            </div>
+            <div class="metric orange">
+              <div class="metric-title">点赞保持阶段末端差异</div>
+              <div class="metric-value">1.56 cm</div>
+              <div class="metric-note">t = 5.5 s，任务整体得到保留</div>
+            </div>
+          </section>
+        </section>
+      </section>
+
+      <section class="takeaway">
+        <div class="takeaway-tag">实验结论</div>
+        <div class="takeaway-text">安全层拒绝A4负向越限，并通过全身关节重分配绕开障碍物；局部轨迹发生变化，但点赞保持阶段的末端位置与原动作仅相差1.56 cm。</div>
+      </section>
+      <footer class="footer">
+        <span>安全判据：关节限位屏障与14个机械臂碰撞球的障碍物屏障均满足 h ≥ 0</span>
+        <span>A7V2 OSCBF MuJoCo Demo</span>
+      </footer>
+    </main>
+  </div>
+  <script>
+    const slide = document.getElementById('slide');
+    function fitSlide() {
+      const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+      slide.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('resize', fitSlide);
+    fitSlide();
+  </script>
+</body>
+</html>

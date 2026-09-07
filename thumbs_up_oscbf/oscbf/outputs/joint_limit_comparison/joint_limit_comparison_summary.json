@@ -1,0 +1,84 @@
+{
+  "experiment": "URDF joint-limit CBF response to an invalid upstream A4 command",
+  "isolation_choice": "The obstacle is placed far outside the workspace so the comparison isolates the joint-limit CBF. Both cases use identical controller settings.",
+  "valid_reference_construction": "Use the current source trajectory after clipping to the URDF intervals. The current source A4 command is already 0 rad throughout.",
+  "invalid_reference_construction": "Without modifying the source CSV, inject a smooth A4 command from 0 to -0.5 rad during the arm-raise phase and hold -0.5 rad afterward.",
+  "urdf_limits_rad": {
+    "A1_joint": [
+      -2.9,
+      1.0
+    ],
+    "A2_joint": [
+      -0.15,
+      3.14
+    ],
+    "A3_joint": [
+      -2.35,
+      2.35
+    ],
+    "A4_joint": [
+      0.0,
+      2.2
+    ],
+    "A5_joint": [
+      -2.35,
+      2.35
+    ],
+    "A6_joint": [
+      -1.57,
+      1.57
+    ],
+    "A7_joint": [
+      -1.57,
+      1.57
+    ]
+  },
+  "cbf": {
+    "lower": "qdot_i >= -alpha * (q_i - q_i,min)",
+    "upper": "-qdot_i >= -alpha * (q_i,max - q_i)",
+    "alpha": 10.0,
+    "control_dt_s": 0.005
+  },
+  "valid_upstream": {
+    "minimum_joint_limit_h_rad": 0.0,
+    "joint_limit_unsafe_steps": 0,
+    "a4_desired_min_rad": 0.0,
+    "a4_actual_min_rad": 0.0,
+    "a4_lower_limit_rad": 0.0,
+    "a4_max_abs_tracking_error_rad": 0.0,
+    "maximum_all_joint_tracking_error_rad": 0.005218962841849338,
+    "maximum_filter_correction_norm_rad_s": 0.0,
+    "maximum_a4_filter_correction_rad_s": 0.0,
+    "maximum_non_a4_filter_correction_rad_s": 0.0,
+    "first_filter_intervention_time_s": null,
+    "maximum_qp_constraint_residual": -0.0
+  },
+  "invalid_a4_upstream": {
+    "minimum_joint_limit_h_rad": -1.0987951951653223e-18,
+    "joint_limit_unsafe_steps": 0,
+    "a4_desired_min_rad": -0.5,
+    "a4_actual_min_rad": -1.0987951951653223e-18,
+    "a4_lower_limit_rad": 0.0,
+    "a4_max_abs_tracking_error_rad": 0.5000000000000099,
+    "maximum_all_joint_tracking_error_rad": 0.6164012732533143,
+    "maximum_filter_correction_norm_rad_s": 4.364773706428235,
+    "maximum_a4_filter_correction_rad_s": 3.5415993246552118,
+    "maximum_non_a4_filter_correction_rad_s": 2.0901582055250922,
+    "first_filter_intervention_time_s": 0.02,
+    "maximum_qp_constraint_residual": 6.54917306234244e-16
+  },
+  "upstream_a4_ranges_rad": {
+    "valid": [
+      0.0,
+      0.0
+    ],
+    "invalid": [
+      -0.5,
+      -0.0
+    ],
+    "urdf": [
+      0.0,
+      2.2
+    ]
+  }
+}

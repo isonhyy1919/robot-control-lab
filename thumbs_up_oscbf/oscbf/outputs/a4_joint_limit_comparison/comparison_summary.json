@@ -1,0 +1,110 @@
+{
+  "method": "velocity-level task-consistent OSCBF with obstacle and URDF joint-limit CBFs",
+  "comparison_definition": {
+    "valid_upstream": "current thumbs-up trajectory; A4_joint remains at 0 rad and obeys the URDF range",
+    "violating_upstream": "same current trajectory with only A4_joint smoothly injected to -0.5 rad",
+    "reference_video": "oscbf/outputs/oscbf_thumbsup/oscbf_obstacle_avoidance.mp4",
+    "reference_use": "camera, obstacle appearance, and OSCBF visualization reference; it is not overwritten",
+    "obstacle_center_m": [
+      0.7,
+      -0.315,
+      0.82
+    ],
+    "obstacle_radius_m": 0.105,
+    "safety_margin_m": 0.025,
+    "control_dt_s": 0.005,
+    "alpha": 10.0
+  },
+  "urdf_arm_joint_limits_rad": {
+    "A1_joint": [
+      -2.9,
+      1.0
+    ],
+    "A2_joint": [
+      -0.15,
+      3.14
+    ],
+    "A3_joint": [
+      -2.35,
+      2.35
+    ],
+    "A4_joint": [
+      0.0,
+      2.2
+    ],
+    "A5_joint": [
+      -2.35,
+      2.35
+    ],
+    "A6_joint": [
+      -1.57,
+      1.57
+    ],
+    "A7_joint": [
+      -1.57,
+      1.57
+    ]
+  },
+  "valid_upstream": {
+    "steps": 1341,
+    "minimum_obstacle_h_m": -5.204170427930421e-16,
+    "obstacle_unsafe_steps": 0,
+    "minimum_joint_limit_h_rad": -1.4975501940306854e-15,
+    "joint_limit_unsafe_steps": 0,
+    "maximum_joint_tracking_error_rad": 1.342891617869571,
+    "mean_joint_tracking_error_rad": 0.4741645047026572,
+    "mean_qp_time_us": 6031.54966442953,
+    "p95_qp_time_us": 28247.2,
+    "maximum_qp_constraint_residual": 6.57316112651074e-09,
+    "upstream_a4_min_rad": 0.0,
+    "upstream_a4_max_rad": 0.0,
+    "executed_a4_min_rad": -1.4975501940306854e-15,
+    "executed_a4_max_rad": 0.4050788508872001,
+    "a4_lower_limit_rad": 0.0,
+    "a4_upper_limit_rad": 2.2,
+    "a4_nominal_velocity_min_rad_s": -2.8355519562104003,
+    "a4_safe_velocity_min_rad_s": -0.639964654475587,
+    "a4_max_velocity_intervention_rad_s": 4.764812104135626,
+    "mean_arm_velocity_intervention_norm_rad_s": 3.448072997710962,
+    "p95_arm_velocity_intervention_norm_rad_s": 7.988344477747723,
+    "a4_lower_cbf_active_steps_1e-4": 410
+  },
+  "a4_violating_upstream": {
+    "steps": 1341,
+    "minimum_obstacle_h_m": 0.00012137569923510033,
+    "obstacle_unsafe_steps": 0,
+    "minimum_joint_limit_h_rad": -1.3276055602085004e-16,
+    "joint_limit_unsafe_steps": 0,
+    "maximum_joint_tracking_error_rad": 1.2618039226098048,
+    "mean_joint_tracking_error_rad": 0.5758154118511135,
+    "mean_qp_time_us": 852.913721103654,
+    "p95_qp_time_us": 2936.6,
+    "maximum_qp_constraint_residual": 6.013588453434443e-07,
+    "upstream_a4_min_rad": -0.5,
+    "upstream_a4_max_rad": -0.0,
+    "executed_a4_min_rad": -1.3276055602085004e-16,
+    "executed_a4_max_rad": 0.31182461538838185,
+    "a4_lower_limit_rad": 0.0,
+    "a4_upper_limit_rad": 2.2,
+    "a4_nominal_velocity_min_rad_s": -5.317057082720439,
+    "a4_safe_velocity_min_rad_s": -2.2749999999999995,
+    "a4_max_velocity_intervention_rad_s": 6.247247052138922,
+    "mean_arm_velocity_intervention_norm_rad_s": 4.158099011297884,
+    "p95_arm_velocity_intervention_norm_rad_s": 7.442655723046884,
+    "a4_lower_cbf_active_steps_1e-4": 1129
+  },
+  "output_trajectory_difference": {
+    "maximum_per_joint_output_difference_rad": {
+      "A1_joint": 0.8167729571978758,
+      "A2_joint": 0.44026325247401266,
+      "A3_joint": 0.39650912180123554,
+      "A4_joint": 0.4047891738029341,
+      "A5_joint": 0.41098554505249296,
+      "A6_joint": 0.6642842100107982,
+      "A7_joint": 0.5338383633288463
+    },
+    "maximum_whole_arm_output_difference_norm_rad": 1.1905321601297638,
+    "maximum_end_effector_position_difference_m": 0.4098202892742947,
+    "final_end_effector_position_difference_m": 0.11843234940877563
+  }
+}

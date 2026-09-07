@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>A7V2 · 点赞与 OSCBF 避障</title>
+<style>
+  *{box-sizing:border-box}body{margin:0;background:#111923;color:#edf3fa;font:16px/1.7 system-ui,sans-serif}main{max-width:1200px;margin:auto;padding:48px 24px}h1{font-size:clamp(26px,4vw,42px);line-height:1.3;margin:8px 0 20px}p{color:#b8c7d9}.label{color:#78cfec;letter-spacing:3px;font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:24px;margin-top:32px}article{background:#1b2837;border:1px solid #314359;border-radius:14px;overflow:hidden}video{width:100%;display:block;background:#090e15;aspect-ratio:4/3}h2{font-size:20px;margin:16px 20px 4px}article p{margin:0 20px 20px;font-size:14px}a{color:#78cfec}footer{margin-top:36px;border-top:1px solid #314359;padding-top:20px;color:#b8c7d9}
+</style>
+<main>
+  <div class="label">A7V2 / MUJOCO / OSCBF</div>
+  <h1>从竖大拇指到安全避障</h1>
+  <p>机械臂与灵巧手协同动作 · 速度级安全过滤 · 关节限位对比</p>
+  <p>下载完整目录后用浏览器打开本页，即可播放下方视频。实验版本与运行方法见 <a href="README.md">README</a>。</p>
+  <section class="grid">
+    <article><video controls preload="metadata" src="thumbsup/outputs/thumbs_up_arm_hand_stand.mp4"></video><h2>01 / 竖大拇指</h2><p>抬臂后四指收拢、拇指展开，展示完整点赞动作。</p></article>
+    <article><video controls preload="metadata" src="oscbf/outputs/oscbf_thumbsup/original_thumbsup_same_view.mp4"></video><h2>02 / 原始动作，同视角</h2><p>保留原始动作的对应视角，便于查看加入避障前的运动。</p></article>
+    <article><video controls preload="metadata" src="oscbf/outputs/oscbf_thumbsup/oscbf_obstacle_avoidance.mp4"></video><h2>03 / OSCBF 避障</h2><p>早期 7.7 秒实验：球形障碍物、环境安全边界与机械臂碰撞球同时可见。</p></article>
+    <article><video controls preload="metadata" src="oscbf/outputs/joint_limit_comparison/a4_joint_limit_comparison.mp4"></video><h2>04 / 关节限位隔离对比</h2><p>障碍物移远，比较合法与越界 A4 上游指令经过安全过滤后的响应。</p></article>
+    <article><video controls preload="metadata" src="oscbf/outputs/a4_joint_limit_comparison/a4_limit_side_by_side_comparison.mp4"></video><h2>05 / 避障 + A4 限位</h2><p>后续 6.7 秒实验：相同场景，比较合法 A4 与仅 A4 注入 −0.5 rad 的两组指令。</p></article>
+    <article><video controls preload="metadata" src="oscbf/outputs/a4_joint_limit_comparison/no_obstacle_unsafe_vs_original_obstacle.mp4"></video><h2>06 / 综合效果展示</h2><p>左侧移除障碍物、直接执行越界动作；右侧为早期 OSCBF 避障。两侧场景不同，作为效果展示。</p></article>
+  </section>
+  <footer>本项目为 MuJoCo 速度级运动学实验。完整 CSV、JSON、单独视频和图表保存在 oscbf/outputs/。</footer>
+</main>
+</html>

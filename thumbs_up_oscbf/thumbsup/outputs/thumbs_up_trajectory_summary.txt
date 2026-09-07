@@ -1,0 +1,17 @@
+Thumb-up demo trajectory
+
+Phase 1: initial pose, arm set to its starting joint angles and hand open.
+  A1_joint=0.000 A2_joint=1.500 A3_joint=0.000 A4_joint=0.000 A5_joint=0.000 A6_joint=0.000 A7_joint=0.000
+
+Phase 2: arm raise, only arm joints interpolate from initial to raised pose.
+  A1_joint=-1.000 A2_joint=1.500 A3_joint=1.200 A4_joint=0.000 A5_joint=0.000 A6_joint=0.000 A7_joint=0.000
+
+Phase 3: hand gesture, arm stays fixed and the four fingers/thumb interpolate to thumbs-up.
+  thumb_yaw=0.640
+  index_mcp_pitch=1.180
+  middle_mcp_pitch=1.180
+
+Cartesian check from sampled MuJoCo forward kinematics:
+  A7 initial = (0.401, -0.340, 0.614)
+  A7 raised  = (0.893, -0.339, 0.883)
+  thumb final = (1.079, -0.295, 0.879)
