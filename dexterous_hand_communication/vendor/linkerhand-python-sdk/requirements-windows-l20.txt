@@ -1,0 +1,5 @@
+# Minimal dependencies for Linker Hand L20 CAN communication on Windows.
+# The upstream requirements.txt also contains optional GUI/simulation/vision packages.
+python-can
+numpy
+PyYAML
